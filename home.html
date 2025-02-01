@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,26 +23,140 @@
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/bootstrap.rtl.css">
     <link rel="stylesheet" href="assets/css/bootstrap.rtl.min.css">
+    <link rel="stylesheet" href="assets/css/navbar.css">
+    <link href="assets/js/navbar.js">
 </head>
+
 <body>
 
     <div class="main-content">
         <div class="content">
-            <!-- Page content goes here -->
+            <!-- Welcome Message -->
             <h1 class="text-center">Welcome Back</h1>
-            <p class="text-center">Today's Schedule</p>
+
+            <!-- Today's Schedule Card -->
+            <div class="card mt-4">
+                <h4>Today's Schedule</h4>
+                <div class="card-header">
+                    Today's Pull Day
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Exercises</h5>
+                    <ul class="list-group">
+                        <li class="list-group-item">Pull-ups</li>
+                        <li class="list-group-item">Deadlifts</li>
+                        <li class="list-group-item">Bent-over Rows</li>
+                        <li class="list-group-item">Bicep Curls</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Motivational Quote Section -->
+            <div class="mt-4 text-center">
+                <h5>"The only bad workout is the one that didn't happen."</h5>
+            </div>
+
+            <!-- Upcoming Workouts Carousel -->
+            <div class="mt-4">
+                <h4>Upcoming</h4>
+                <div id="upcomingCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Day 1: Push</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Day 2: Pull</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Day 3: Legs</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Day 4: Rest</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Day 5: Push</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#upcomingCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#upcomingCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
         </div>
 
         <!-- Bottom Navbar -->
-        <nav class="navbar navbar-expand navbar-light bg-light navbar-bottom">
-            <div class="container-fluid justify-content-around">
-                <a class="btn btn-primary" href="#" role="button">Home</a>
-                <a class="btn btn-primary" href="#" role="button">Video</a>
-                <a class="btn btn-primary" href="#" role="button">Profile</a>
-                <a class="btn btn-primary" href="#" role="button">Settings</a>
+        <nav class="nav container">
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item">
+                        <a href="home.html" class="nav__link active-link">
+                            <i class='si-home' style="font-size: 23px;"></i>
+                            <span class="nav__name">Home</span>
+                        </a>
+                    </li>
+                    
+                    <li class="nav__item">
+                        <a href="video.html" class="nav__link">
+                            <i class='si-video' style="font-size: 23px;"></i>
+                            <span class="nav__name">AI</span>
+                        </a>
+                    </li>
+
+                    <li class="nav__item">
+                        <a href="#" class="nav__link">
+                            <i class='si-message' style="font-size: 23px;"></i>
+                            <span class="nav__name">Chatbot</span>
+                        </a>
+                    </li>
+
+                    <li class="nav__item">
+                        <a href="profile.html" class="nav__link">
+                            <i class='si-user' style="font-size: 23px;"></i>
+                            <span class="nav__name">Profile</span>
+                        </a>
+                    </li>
+
+                    <li class="nav__item">
+                        <a href="settings.html" class="nav__link">
+                            <i class='si-virus' style="font-size: 23px;"></i>
+                            <span class="nav__name">Settings</span>
+                        </a>
+                    </li>
+                </ul>
             </div>
         </nav>
     </div>
 
+    <!-- Bootstrap JS & Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+    
+    <script src="assets/js/main.js"></script>
 </body>
+
 </html>
