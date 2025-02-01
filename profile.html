@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,197 +9,232 @@
     <link rel="stylesheet" href="assets/style.css">
     <link rel="stylesheet" href="assets/css/bootstrap-grid.css">
     <link rel="stylesheet" href="assets/css/bootstrap-grid.min.css">
-    <link rel="stylesheet" href="assets/css/bootstrap-grid.rtl.css">
-    <link rel="stylesheet" href="assets/css/bootstrap-grid.rtl.min.css">
     <link rel="stylesheet" href="assets/css/bootstrap-reboot.css">
-    <link rel="stylesheet" href="assets/css/bootstrap-reboot.min.css">
-    <link rel="stylesheet" href="assets/css/bootstrap-reboot.rtl.css">
-    <link rel="stylesheet" href="assets/css/bootstrap-reboot.rtl.min.css">
     <link rel="stylesheet" href="assets/css/bootstrap-utilities.css">
-    <link rel="stylesheet" href="assets/css/bootstrap-utilities.min.css">
-    <link rel="stylesheet" href="assets/css/bootstrap-utilities.rtl.css">
-    <link rel="stylesheet" href="assets/css/bootstrap-utilities.rtl.min.css">
     <link rel="stylesheet" href="assets/css/bootstrap.css">
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/bootstrap.rtl.css">
-    <link rel="stylesheet" href="assets/css/bootstrap.rtl.min.css">
     <link rel="stylesheet" href="assets/css/navbar.css">
-    <link href="assets/js/navbar.js">
-    <style>
-        /* For sliding in side menu */
-        .modal-dialog {
-            max-width: 450px;
-        }
-
-        /* For sliding effect */
-        .modal.fade .modal-dialog {
-            transform: translateX(100%);
-            transition: transform 0.3s ease-in-out;
-        }
-
-        .modal.fade.show .modal-dialog {
-            transform: translateX(0);
-        }
-
-        /* Optional: Style buttons */
-        .profile-btn {
-            width: 100%;
-            margin: 10px 0;
-        }
-
-        /* Ensure content takes full height */
-        body, html {
-            height: 100%;
-            margin: 0;
-        }
-    </style>
 </head>
+
 <body>
-
     <div class="main-content">
-        <div class="content">
-            <!-- Profile content -->
-            <i class="si-user-circle" style="font-size: 50px; padding-bottom: 20px;"></i>
-            <h1>Profile</h1>
-            <p>Change account information and modify your workout plan</p>
-
-            <!-- Buttons to trigger modals -->
-            <div class="container">
-                <button class="btn btn-primary profile-btn" data-bs-toggle="modal" data-bs-target="#accountModal">
-                    Edit Account Details
-                </button>
-                <button class="btn btn-primary profile-btn" data-bs-toggle="modal" data-bs-target="#workoutModal">
-                    Edit Workout Plan
-                </button>
-                <button class="btn btn-primary profile-btn" data-bs-toggle="modal" data-bs-target="#equipmentModal">
-                    Edit Available Equipment
-                </button>
-                <a href="login.html"><button class="btn btn-primary profile-btn" >
-                    Log Out
-                </button></a>
-            </div>
+        <div class="content_home">
+            <i class="si-user-circle" style="font-size: 50px; margin-left: 30px; margin-top: 30px;"></i>
+            <h1 class="text-center">Profile</h1>
         </div>
 
-        <!-- Bottom Navbar -->
-        <nav class="nav container">
-            <div class="nav__menu" id="nav-menu">
-                <ul class="nav__list">
-                    <li class="nav__item">
-                        <a href="home.html" class="nav__link">
-                            <i class='si-home' style="font-size: 23px;"></i>
-                            <span class="nav__name">Home</span>
-                        </a>
-                    </li>
-                    
-                    <li class="nav__item">
-                        <a href="video.html" class="nav__link">
-                            <i class='si-video' style="font-size: 23px;"></i>
-                            <span class="nav__name">AI</span>
-                        </a>
-                    </li>
-
-                    <li class="nav__item">
-                        <a href="#" class="nav__link">
-                            <i class='si-message' style="font-size: 23px;"></i>
-                            <span class="nav__name">Chatbot</span>
-                        </a>
-                    </li>
-
-                    <li class="nav__item">
-                        <a href="profile.html" class="nav__link active-link">
-                            <i class='si-user' style="font-size: 23px;"></i>
-                            <span class="nav__name">Profile</span>
-                        </a>
-                    </li>
-
-                    <li class="nav__item">
-                        <a href="settings.html" class="nav__link">
-                            <i class='si-virus' style="font-size: 23px;"></i>
-                            <span class="nav__name">Settings</span>
-                        </a>
-                    </li>
-                </ul>
+        <!-- Account Details Section -->
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span>Account Details</span>
+                <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#accountDetails" aria-expanded="false" aria-controls="accountDetails">
+                    <i class="si-arrow-down"></i>
+                </button>
             </div>
-        </nav>
-    </div>
-
-    <!-- Modal for Account Details -->
-    <div class="modal fade" id="accountModal" tabindex="-1" aria-labelledby="accountModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="accountModalLabel">Edit Account Details</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
+            <div class="collapse mt-3" id="accountDetails">
+                <div class="card-body">
                     <form>
                         <div class="mb-3">
                             <label for="email" class="form-label">Email Address</label>
-                            <input type="email" class="form-control" id="email" placeholder="Enter your email">
+                            <input type="email" class="form-control" id="email" value="demo@example.com">
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" placeholder="Enter new password">
+                            <input type="password" class="form-control" id="password" value="******">
                         </div>
                         <button type="submit" class="btn btn-primary">Save Changes</button>
                     </form>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Modal for Workout Plan -->
-    <div class="modal fade" id="workoutModal" tabindex="-1" aria-labelledby="workoutModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="workoutModalLabel">Edit Workout Plan</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
+        <!-- Workout Plan Section -->
+        <div class="card mt-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span>Edit Workout Plan</span>
+                <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#workoutPlan" aria-expanded="false" aria-controls="workoutPlan">
+                    <i class="si-arrow-down"></i>
+                </button>
+            </div>
+            <div class="collapse mt-3" id="workoutPlan">
+                <div class="card-body">
                     <form>
                         <div class="mb-3">
-                            <label for="workout-plan" class="form-label">Workout Plan</label>
-                            <select class="form-select" id="workout-plan">
-                                <option value="beginner">Beginner</option>
-                                <option value="intermediate">Intermediate</option>
-                                <option value="advanced">Advanced</option>
+                            <label for="workoutDays" class="form-label">Choose Workout Days</label>
+                            <select class="form-select" id="workoutDays" multiple>
+                                <option value="monday">Monday</option>
+                                <option value="tuesday">Tuesday</option>
+                                <option value="wednesday">Wednesday</option>
+                                <option value="thursday">Thursday</option>
+                                <option value="friday">Friday</option>
+                                <option value="saturday">Saturday</option>
+                                <option value="sunday">Sunday</option>
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                        <div class="mb-3">
+                            <label for="workoutType" class="form-label">Workout Goals</label>
+                            <select class="form-select" id="workoutType">
+                                <option value="bodybuilding">Bodybuilding</option>
+                                <option value="athletic">Athletic</option>
+                                <option value="weightloss">Weight Loss</option>
+                                <option value="corestrength">Core Strength</option>
+                                <option value="generalfitness">General Fitness</option>
+                                <option value="mobility">Mobility</option>
+                                <option value="endurance">Endurance</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Workout Plan</button>
                     </form>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Modal for Equipment -->
-    <div class="modal fade" id="equipmentModal" tabindex="-1" aria-labelledby="equipmentModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="equipmentModalLabel">Edit Available Equipment</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
+        <!-- Equipment Selection Section -->
+        <div class="card mt-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span>Select Available Equipment</span>
+                <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#equipmentSelection" aria-expanded="false" aria-controls="equipmentSelection">
+                    <i class="si-arrow-down"></i>
+                </button>
+            </div>
+            <div class="collapse mt-3" id="equipmentSelection">
+                <div class="card-body">
                     <form>
                         <div class="mb-3">
-                            <label for="equipment" class="form-label">Select Equipment</label>
+                            <label for="equipment" class="form-label">Available Equipment</label>
                             <select class="form-select" id="equipment" multiple>
-                                <option value="dumbbell">Dumbbell</option>
+                                <option value="dumbbells">Dumbbells</option>
+                                <option value="pullUpBar">Pull Up Bar</option>
+                                <option value="bench">Bench</option>
                                 <option value="treadmill">Treadmill</option>
-                                <option value="bicycle">Exercise Bike</option>
+                                <option value="kettlebells">Kettlebells</option>
                                 <option value="barbell">Barbell</option>
+                                <option value="resistanceBands">Resistance Bands</option>
+                                <option value="exerciseMat">Exercise Mat</option>
+                                <option value="medicineBall">Medicine Ball</option>
+                                <option value="battleRopes">Battle Ropes</option>
+                                <option value="foamRoller">Foam Roller</option>
+                                <option value="jumpRope">Jump Rope</option>
+                                <option value="rowingMachine">Rowing Machine</option>
+                                <option value="elliptical">Elliptical</option>
+                                <option value="pullUpAssist">Pull Up Assist</option>
+                                <option value="squatRack">Squat Rack</option>
+                                <option value="legPress">Leg Press</option>
+                                <option value="abRoller">Ab Roller</option>
+                                <option value="barbellWeights">Barbell Weights</option>
+                                <option value="weightedVest">Weighted Vest</option>
+                                <option value="stepPlatform">Step Platform</option>
+                                <option value="dippingBars">Dipping Bars</option>
+                                <option value="powerTower">Power Tower</option>
+                                <option value="cableMachine">Cable Machine</option>
+                                <option value="smithMachine">Smith Machine</option>
+                                <option value="stationaryBike">Stationary Bike</option>
+                                <option value="hackSquatMachine">Hack Squat Machine</option>
+                                <option value="legCurlMachine">Leg Curl Machine</option>
+                                <option value="legExtensionMachine">Leg Extension Machine</option>
+                                <option value="chestPressMachine">Chest Press Machine</option>
+                                <option value="pecDeckMachine">Pec Deck Machine</option>
+                                <option value="latPulldownMachine">Lat Pulldown Machine</option>
+                                <option value="gluteHamRaise">Glute Ham Raise</option>
+                                <option value="tires">Tires</option>
+                                <option value="sled">Sled</option>
+                                <option value="weightedBar">Weighted Bar</option>
+                                <option value="landmineAttachment">Landmine Attachment</option>
+                                <option value="suspensionTrainer">Suspension Trainer</option>
+                                <option value="ankleWeights">Ankle Weights</option>
+                                <option value="dipBelt">Dip Belt</option>
+                                <option value="trx">TRX</option>
+                                <option value="chinUpBar">Chin Up Bar</option>
+                                <option value="gripStrengthener">Grip Strengthener</option>
+                                <option value="weightedBall">Weighted Ball</option>
+                                <option value="sledPush">Sled Push</option>
+                                <option value="farmersCarryHandles">Farmer’s Carry Handles</option>
+                                <option value="stretchingStrap">Stretching Strap</option>
+                                <option value="balanceBoard">Balance Board</option>
+                                <option value="abCrunchMachine">Ab Crunch Machine</option>
+                                <option value="gluteKickbackMachine">Glute Kickback Machine</option>
+                                <option value="hipAbductorMachine">Hip Abductor Machine</option>
+                                <option value="hipAdductorMachine">Hip Adductor Machine</option>
+                                <option value="rowingErgometer">Rowing Ergometer</option>
+                                <option value="airBike">Air Bike</option>
+                                <option value="crossoverSymmetry">Crossover Symmetry</option>
+                                <option value="weightedRope">Weighted Rope</option>
+                                <option value="resistanceLoop">Resistance Loop</option>
+                                <option value="sliders">Sliders</option>
+                                <option value="pullOverBar">Pull Over Bar</option>
+                                <option value="cableCrossover">Cable Crossover</option>
+                                <option value="overheadPressMachine">Overhead Press Machine</option>
+                                <option value="weightedBall">Weighted Ball</option>
+                                <option value="sandBag">Sandbag</option>
+                                <option value="parallettes">Parallettes</option>
+                                <option value="sledDragStraps">Sled Drag Straps</option>
+                                <option value="aeroTrainer">AeroTrainer</option>
+                                <option value="kickboxingBag">Kickboxing Bag</option>
+                                <option value="sandBells">Sandbells</option>
+                                <option value="medicineBallRebounder">Medicine Ball Rebounder</option>
+                                <option value="gripStrengthMachine">Grip Strength Machine</option>
+                                <option value="climbingWall">Climbing Wall</option>
+
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                        <button type="submit" class="btn btn-primary">Save Equipment</button>
                     </form>
                 </div>
             </div>
         </div>
+
+        <!-- Log Out Button -->
+        <div class="card mt-4">
+            <div class="card-body text-center">
+                <a href="login.html"><button class="btn btn-danger">Log Out</button></a>
+            </div>
+        </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/main.js"></script>
+    <!-- Bottom Navbar -->
+    <nav class="nav container navbar-bottom">
+        <div class="nav__menu" id="nav-menu">
+            <ul class="nav__list">
+                <li class="nav__item">
+                    <a href="home.html" class="nav__link">
+                        <i class='si-home' style="font-size: 23px;"></i>
+                        <span class="nav__name">Home</span>
+                    </a>
+                </li>
+
+                <li class="nav__item">
+                    <a href="video.html" class="nav__link">
+                        <i class='si-video' style="font-size: 23px;"></i>
+                        <span class="nav__name">AI</span>
+                    </a>
+                </li>
+
+                <li class="nav__item">
+                    <a href="chatbot.html" class="nav__link">
+                        <i class='si-message' style="font-size: 23px;"></i>
+                        <span class="nav__name">Chatbot</span>
+                    </a>
+                </li>
+
+                <li class="nav__item">
+                    <a href="profile.html" class="nav__link active-link">
+                        <i class='si-user' style="font-size: 23px;"></i>
+                        <span class="nav__name">Profile</span>
+                    </a>
+                </li>
+
+                <li class="nav__item">
+                    <a href="settings.html" class="nav__link">
+                        <i class='si-virus' style="font-size: 23px;"></i>
+                        <span class="nav__name">Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Bootstrap JS & Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
 </body>
+
 </html>

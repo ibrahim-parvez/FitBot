@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitBot - Chatbot</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/siimple-icons/siimple-icons.css" />
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/css/bootstrap-grid.css">
+    <link rel="stylesheet" href="assets/css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="assets/css/bootstrap-grid.rtl.css">
+    <link rel="stylesheet" href="assets/css/bootstrap-grid.rtl.min.css">
+    <link rel="stylesheet" href="assets/css/bootstrap-reboot.css">
+    <link rel="stylesheet" href="assets/css/bootstrap-reboot.min.css">
+    <link rel="stylesheet" href="assets/css/bootstrap-reboot.rtl.css">
+    <link rel="stylesheet" href="assets/css/bootstrap-reboot.rtl.min.css">
+    <link rel="stylesheet" href="assets/css/bootstrap-utilities.css">
+    <link rel="stylesheet" href="assets/css/bootstrap-utilities.min.css">
+    <link rel="stylesheet" href="assets/css/bootstrap-utilities.rtl.css">
+    <link rel="stylesheet" href="assets/css/bootstrap-utilities.rtl.min.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.rtl.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.rtl.min.css">
+    <link rel="stylesheet" href="assets/css/navbar.css">
+    <link href="assets/js/navbar.js">
+    <style>
+        /* Chatbot Page Styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f7fb;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Chat Container */
+        .chat-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        /* Chat Messages Area */
+        .chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            max-height: calc(100vh - 200px); /* Make it scrollable */
+            background-color: #f9f9f9;
+            border-bottom: 1px solid #e1e1e1;
+        }
+
+        .chat-message {
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+
+        .user-message {
+            background-color: #27a699;
+            color: white;
+            align-self: flex-end;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+
+        .bot-message {
+            background-color: #e1e1e1;
+            color: #333;
+            align-self: flex-start;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+
+        /* Input Box */
+        .chat-input {
+            display: flex;
+            padding: 15px;
+            background-color: #fff;
+            border-top: 1px solid #e1e1e1;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            margin-right: 10px;
+            font-size: 1rem;
+        }
+
+        .chat-input button {
+            padding: 12px 20px;
+            background-color: #27a699;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .chat-input button:hover {
+            background-color: #56c6b5;
+        }
+
+        /* Navbar */
+        .nav__item {
+            display: inline-block;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .nav__link {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .nav__link.active-link {
+            color: #27a699;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-content">
+        <div class="content_home">
+            <!-- Chatbot Header -->
+            <h1 class="text-center">FitBot Chatbot</h1>
+            <hr>
+
+            <!-- Chat Container -->
+            <div class="chat-container">
+                <!-- Chat Messages -->
+                <div class="chat-messages" id="chatMessages">
+                    <!-- Example message -->
+                    <div class="chat-message bot-message">
+                        <p>Hello! How can I help you with your fitness today?</p>
+                    </div>
+                </div>
+
+                <!-- Chat Input -->
+                <div class="chat-input">
+                    <input type="text" id="userInput" placeholder="Ask me anything..." />
+                    <button id="sendButton">Send</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Navbar -->
+        <nav class="nav container">
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item">
+                        <a href="home.html" class="nav__link">
+                            <i class='si-home' style="font-size: 23px;"></i>
+                            <span class="nav__name">Home</span>
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="video.html" class="nav__link">
+                            <i class='si-video' style="font-size: 23px;"></i>
+                            <span class="nav__name">AI</span>
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#" class="nav__link active-link">
+                            <i class='si-message' style="font-size: 23px;"></i>
+                            <span class="nav__name">Chatbot</span>
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="profile.html" class="nav__link">
+                            <i class='si-user' style="font-size: 23px;"></i>
+                            <span class="nav__name">Profile</span>
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="settings.html" class="nav__link">
+                            <i class='si-virus' style="font-size: 23px;"></i>
+                            <span class="nav__name">Settings</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Bootstrap JS & Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+
+    <script>
+        // Simple chatbot interaction logic
+        const sendButton = document.getElementById('sendButton');
+        const userInput = document.getElementById('userInput');
+        const chatMessages = document.getElementById('chatMessages');
+
+        sendButton.addEventListener('click', () => {
+            const message = userInput.value.trim();
+            if (message) {
+                // Display user message
+                const userMessage = document.createElement('div');
+                userMessage.classList.add('chat-message', 'user-message');
+                userMessage.innerHTML = `<p>${message}</p>`;
+                chatMessages.appendChild(userMessage);
+
+                // Simulate bot response
+                const botMessage = document.createElement('div');
+                botMessage.classList.add('chat-message', 'bot-message');
+                botMessage.innerHTML = `<p>---------</p>`;
+                chatMessages.appendChild(botMessage);
+
+                // Scroll to the bottom of the chat
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+
+                // Clear input field
+                userInput.value = '';
+            }
+        });
+    </script>
+</body>
+
+</html>

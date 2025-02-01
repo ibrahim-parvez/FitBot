@@ -222,3 +222,68 @@ body, html {
 .content {
   margin: 10px;
 }
+
+.card-body button:hover {
+  background-color: #56c6b5;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+  background-color: #121212;
+  color: #e1e1e1;
+}
+
+body.dark-mode .card {
+  background-color: #1f1f1f;
+  border-color: #333;
+}
+
+body.dark-mode .card-header {
+  background: linear-gradient(135deg, #4285f4, #36b9e2);
+}
+
+body.dark-mode .list-group-item {
+  background-color: #333;
+  border-color: #555;
+  color: #e1e1e1;
+}
+
+body.dark-mode .quote-banner {
+  background: linear-gradient(135deg, #616161, #1c1c1c);
+}
+
+body.dark-mode .share-message p {
+  color: #e1e1e1;
+}
+
+/* Feedback Popup */
+.feedback-popup {
+  display: none;
+  background-color: #f4f7fb;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.feedback-popup textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+}
+
+.feedback-popup button {
+  margin-right: 10px;
+}
+
+/* Share Message */
+.share-message {
+  display: none;
+  background-color: #27a699;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+  text-align: center;
+}
