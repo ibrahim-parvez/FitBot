@@ -1,8 +1,5 @@
 <!doctype html>
-<!--
-Log in page for FitBot.
--->
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -15,17 +12,21 @@ Log in page for FitBot.
 <body>
 
     <div id="header">
-        <h1>Welcome to FitBot!</h1>
+        <h1>Welcome to FitBot</h1>
     </div>
 
     <div class="login-container">
         <h2>Login</h2>
         <form id="login-form">
-            <label for="email">Email</label>
-            <input type="email" id="email" placeholder="Enter your email" required>
+            <div class="input-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="Enter your email" required>
+            </div>
 
-            <label for="password">Password</label>
-            <input type="password" id="password" placeholder="Enter your password" required>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter your password" required>
+            </div>
 
             <button type="submit">Log In</button>
 

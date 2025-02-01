@@ -32,81 +32,83 @@
     <div class="main-content">
         <div class="content">
             <!-- Welcome Message -->
-            <h1 class="text-center">Welcome Back</h1>
+            <p style="text-align: center; margin: 0;">FitBot</p>
+            <h1 class="text-center">Welcome Back Demo User!</h1>
+            <hr>
 
             <!-- Today's Schedule Card -->
             <div class="card mt-4">
                 <h4>Today's Schedule</h4>
                 <div class="card-header">
-                    Today's Pull Day
+                    Pull Day
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">Exercises</h5>
                     <ul class="list-group">
-                        <li class="list-group-item">Pull-ups</li>
-                        <li class="list-group-item">Deadlifts</li>
-                        <li class="list-group-item">Bent-over Rows</li>
-                        <li class="list-group-item">Bicep Curls</li>
+                        <li class="list-group-item">Pull-ups (3x10)</li>
+                        <li class="list-group-item">Deadlifts (2x5)</li>
+                        <li class="list-group-item">Bent-over Rows (3x5)</li>
+                        <li class="list-group-item">Bicep Curls (3x10)</li>
                     </ul>
                 </div>
             </div>
 
             <!-- Motivational Quote Section -->
-            <div class="mt-4 text-center">
+            <div class="quote-banner mt-4 text-center">
                 <h5>"The only bad workout is the one that didn't happen."</h5>
-            </div>
+            </div>            
 
-            <!-- Upcoming Workouts Carousel -->
-            <div class="mt-4">
+            <!-- Upcoming Workouts Horizontal Scroll -->
+            <div class="mt-4 upcoming">
                 <h4>Upcoming</h4>
-                <div id="upcomingCarousel" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Day 1: Push</h5>
-                                </div>
-                            </div>
+                <div class="upcoming-scroll-container">
+                    <div class="upcoming-workout-card">
+                        <div class="card-header">
+                            Monday
                         </div>
-                        <div class="carousel-item">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Day 2: Pull</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Day 3: Legs</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Day 4: Rest</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Day 5: Push</h5>
-                                </div>
-                            </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Focus: Push</h5>
                         </div>
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#upcomingCarousel" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#upcomingCarousel" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
+
+                    <div class="upcoming-workout-card">
+                        <div class="card-header">
+                            Tuesday
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Focus: Pull</h5>
+                        </div>
+                    </div>
+
+                    <div class="upcoming-workout-card">
+                        <div class="card-header">
+                            Wednesday
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Focus: Legs</h5>
+                        </div>
+                    </div>
+
+                    <div class="upcoming-workout-card">
+                        <div class="card-header">
+                            Thursday
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Focus: Rest</h5>
+                        </div>
+                    </div>
+
+                    <div class="upcoming-workout-card">
+                        <div class="card-header">
+                            Friday
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Focus: Push</h5>
+                        </div>
+                    </div>
                 </div>
             </div>
+
         </div>
 
         <!-- Bottom Navbar -->
