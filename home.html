@@ -25,6 +25,108 @@
     <link rel="stylesheet" href="assets/css/bootstrap.rtl.min.css">
     <link rel="stylesheet" href="assets/css/navbar.css">
     <link href="assets/js/navbar.js">
+
+    <script type="importmap">
+        {
+          "imports": {
+            "@google/generative-ai": "https://esm.run/@google/generative-ai"
+          }
+        }
+    </script>
+
+    <script type="module">
+        import { GoogleGenerativeAI } from "@google/generative-ai";
+
+        // Fetch your API_KEY
+        const API_KEY = "AIzaSyD_aIsfF0GxOCVKMjD8dYhHSslcd56qG20";
+
+        // Access your API key
+        const genAI = new GoogleGenerativeAI(API_KEY);
+
+        // ...
+
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+
+        const name = "Fitbot Test";
+        const height = "190 cm";
+        const weight = "130 kg";
+        const age = "19";
+        const build = "beginner";
+        const location = "home";
+        const freedays = "Monday 6-8pm, Wednesday 6-9pm, Saturday 2-4pm, Sunday 11am-1pm";
+        const workoutplan = "weight loss";
+
+        const prompt = `Pretend you are a fitness planner for ${name} who is ${age} years old and is exercising at ${location}.
+    They weigh ${weight}. Their height is ${height}. Design a weekly exercise schedule tailored to ${workoutplan} with a difficulty level 
+    of ${build}. Ensure that all exercises are within the timings of ${freedays}. Save it strictly as a JSON string (nothing else. no back ticks) 
+    in the following structure:
+    
+    Day1 
+    {
+        ExerciseName
+        {
+            reps,
+            sets,
+            weight (if applicable)
+        },
+
+        ExerciseName
+        {
+            reps,
+            sets,
+            weight (if applicable)
+        }
+    },
+    Day 2
+    {
+        ExerciseName
+        {
+            reps,
+            sets,
+            weight (if applicable)
+        },
+
+        ExerciseName
+        {
+            reps,
+            sets,
+            weight (if applicable)
+        }
+    }`;
+
+
+        async function fetchWorkoutPlan() {
+            try {
+                const result = await model.generateContent(prompt);
+                const jsonResponse = JSON.parse(result.response.text());  // ✅ Extract JSON string and parse it
+
+                // ✅ Save response for later use
+                localStorage.setItem("workoutPlan", JSON.stringify(jsonResponse));
+
+                return jsonResponse;
+            } catch (error) {
+                console.error("Error fetching workout plan:", error);
+            }
+        }
+
+        // ✅ Function to download JSON file
+        function downloadJsonFile(data, filename = "workout_plan.json") {
+            const jsonString = JSON.stringify(data, null, 2);
+            const blob = new Blob([jsonString], { type: "application/json" });
+            const a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+        // ...
+
+        window.addEventListener("load", async () => {
+        await fetchWorkoutPlan();
+        });
+    </script>
 </head>
 
 <body>
@@ -55,7 +157,7 @@
             <!-- Motivational Quote Section -->
             <div class="quote-banner mt-4 text-center">
                 <h5>"The only bad workout is the one that didn't happen."</h5>
-            </div>            
+            </div>
 
             <!-- Upcoming Workouts Horizontal Scroll -->
             <div class="mt-4 upcoming">
@@ -120,7 +222,7 @@
                             <span class="nav__name">Home</span>
                         </a>
                     </li>
-                    
+
                     <li class="nav__item">
                         <a href="video.html" class="nav__link">
                             <i class='si-video' style="font-size: 23px;"></i>
@@ -156,7 +258,7 @@
     <!-- Bootstrap JS & Popper -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
-    
+
     <script src="assets/js/main.js"></script>
 </body>
 
