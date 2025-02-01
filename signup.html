@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitBot Sign Up</title>
+    <link rel="stylesheet" href="assets/login+signup/css/styles.css">
+</head>
+<body>
+
+    <div id="header">
+        <h1>Join FitBot Today!</h1>
+    </div>
+
+    <div class="signup-container">
+        <h2>Sign Up</h2>
+        <form>
+            <label for="name">Full Name</label>
+            <input type="text" id="name" placeholder="Enter your full name" required>
+
+            <label for="height">Height (cm)</label>
+            <input type="number" id="height" placeholder="Enter your height" min="0" required>
+
+            <label for="weight">Weight (kg)</label>
+            <input type="number" id="weight" placeholder="Enter your weight" min="0" required>
+
+            <label for="age">Age</label>
+            <input type="number" id="age" placeholder="Enter your age" required>
+
+            <label for="gender">Gender (Optional)</label>
+            <select id="gender">
+                <option value="">Prefer not to say</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+
+            <label for="fitness-level">Current Build / Fitness Level</label>
+            <select id="fitness-level" required>
+                <option value="">Select your fitness level</option>
+                <option value="beginner">Beginner</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="advanced">Advanced</option>
+            </select>
+
+            <label for="availability">Free Days & Times to Work Out</label>
+            <textarea id="availability" placeholder="e.g., Monday & Wednesday 6 PM - 8 PM" required></textarea>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="Enter your email" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Create a password" required>
+
+            <button type="submit">Sign Up</button>
+        </form>
+
+        <p class="login-link">Already have an account? <a href="login.html">Log In</a></p>
+    </div>
+
+    <div id="footer">
+        <p>FitBot 2025</p>
+    </div>
+
+</body>
+</html>
