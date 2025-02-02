@@ -133,6 +133,30 @@
         .nav__link.active-link {
             color: #27a699;
         }
+        /* Chatbot Page Styles (same as before) */
+        .youtube-video {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .youtube-video img {
+            width: 120px;
+            height: 120px;
+            border-radius: 8px;
+            margin-right: 10px;
+        }
+
+        .youtube-video p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .youtube-video a {
+            text-decoration: none;
+            color: #27a699;
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -211,116 +235,135 @@
     <script type="module">
         import { GoogleGenerativeAI } from "@google/generative-ai";
 
-        // Capture the 'exercise' query parameter from the URL
         const urlParams = new URLSearchParams(window.location.search);
         const exerciseName = urlParams.get('exercise');
-
-        // Get chat message container
         const chatMessages = document.getElementById('chatMessages');
         const sendButton = document.getElementById('sendButton');
         const userInput = document.getElementById('userInput');
 
-        // If exerciseName exists in the URL, ask about the exercise right away
+        // Helper function to extract the video ID from a YouTube URL
+        function extractVideoId(url) {
+        const videoIdRegex = /(?:https?:\/\/(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S+?[\?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11}))/;
+        const match = url.match(videoIdRegex);
+        return match ? match[1] : null;
+        }
+
         if (exerciseName) {
             const userMessage = document.createElement('div');
             userMessage.classList.add('chat-message', 'user-message');
             userMessage.innerHTML = `<p>How do I do ${exerciseName}?</p>`;
             chatMessages.appendChild(userMessage);
 
-            // Placeholder bot message (we'll replace it after the API call)
             const botMessage = document.createElement('div');
             botMessage.classList.add('chat-message', 'bot-message');
             botMessage.innerHTML = `<p>Loading...</p>`;
             chatMessages.appendChild(botMessage);
 
-            // Scroll to the bottom
             chatMessages.scrollTop = chatMessages.scrollHeight;
 
-            // Initialize the Google Generative AI client
             try {
-                const API_KEY = 'AIzaSyD_aIsfF0GxOCVKMjD8dYhHSslcd56qG20'; // Handle securely in production!
+                const API_KEY = 'AIzaSyD_aIsfF0GxOCVKMjD8dYhHSslcd56qG20';
                 const genAI = new GoogleGenerativeAI(API_KEY);
                 const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
-                // Create the prompt for the exercise
-                const prompt = `Give a short description and one or two YouTube videos for how to do ${exerciseName}.`;
+                // First Call: Get a short description and how to do the exercise
+                const promptDescription = `This query is for a fitness app. Give a short, simple description of how to do ${exerciseName}. Provide only a 2-3 sentence description.`;
+                const resultDescription = await model.generateContent(promptDescription);
+                const descriptionResponse = await resultDescription.response.text();
 
-                // Call the API with the prompt
-                const result = await model.generateContent(prompt);
-                const response = await result.response.text();
+                // Display description
+                botMessage.innerHTML = `<p>${descriptionResponse.trim()}</p>`;
+                chatMessages.scrollTop = chatMessages.scrollHeight;
 
-                // Remove the "Loading..." message
-                botMessage.remove();
+                // Second Call: Get the first YouTube video URL
+                const promptVideo1 = `Give me a URL for a youtube video that demonstrates how to do ${exerciseName}. Use these URLS and match it with the exercise name. For Stretches, https://www.youtube.com/watch?v=FI51zRzgIe4. For Yoga/Pilates, https://www.youtube.com/watch?v=Eml2xnoLpYE. For Cool-Down, https://www.youtube.com/watch?v=r5QG2Lq1oUo. Only return the appropriate URL, nothing else, no description.`;
+                const resultVideo1 = await model.generateContent(promptVideo1);
+                const video1Url = await resultVideo1.response.text();
 
-                // Display the bot's reply (description + YouTube links)
-                const botReplyMessage = document.createElement('div');
-                botReplyMessage.classList.add('chat-message', 'bot-message');
-                botReplyMessage.innerHTML = `<p>${response}</p>`;
-                chatMessages.appendChild(botReplyMessage);
+                const video1Id = extractVideoId(video1Url);
+                const video1ThumbnailUrl = `https://img.youtube.com/vi/${video1Id}/hqdefault.jpg`;
 
-                // Scroll to the bottom
+                const botVideo1Message = document.createElement('div');
+                botVideo1Message.classList.add('chat-message', 'bot-message');
+                botVideo1Message.innerHTML = `
+                    <div class="youtube-video">
+                        <a href="${video1Url}" target="_blank">
+                            <img src="${video1ThumbnailUrl}" alt="Video Thumbnail" style="width: 120px; height: 120px; border-radius: 8px; margin-right: 10px;">
+                            <p>Watch Video 1</p>
+                        </a>
+                    </div>
+                `;
+                chatMessages.appendChild(botVideo1Message);
+
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+
+                // Third Call: Get the second YouTube video URL
+                const promptVideo2 = `Give me a URL for a youtube video that demonstrates how to do ${exerciseName}. Use these URLS and match it with the exercise name. For Stretches, https://www.youtube.com/watch?v=g_tea8ZNk5A. For Yoga/Pilates, https://www.youtube.com/watch?v=QBMFsJvamIw. For Cool-Down, https://www.youtube.com/watch?v=u6u4BKwUVF8. Only return the appropriate URL, nothing else, no description.`;
+                const resultVideo2 = await model.generateContent(promptVideo2);
+                const video2Url = await resultVideo2.response.text();
+
+                const video2Id = extractVideoId(video2Url);
+                const video2ThumbnailUrl = `https://img.youtube.com/vi/${video2Id}/hqdefault.jpg`;
+
+                const botVideo2Message = document.createElement('div');
+                botVideo2Message.classList.add('chat-message', 'bot-message');
+                botVideo2Message.innerHTML = `
+                    <div class="youtube-video">
+                        <a href="${video2Url}" target="_blank">
+                            <img src="${video2ThumbnailUrl}" alt="Video Thumbnail" style="width: 120px; height: 120px; border-radius: 8px; margin-right: 10px;">
+                            <p>Watch Video 2</p>
+                        </a>
+                    </div>
+                `;
+                chatMessages.appendChild(botVideo2Message);
+
                 chatMessages.scrollTop = chatMessages.scrollHeight;
             } catch (error) {
                 console.error('Error communicating with Google Generative AI:', error);
                 botMessage.innerHTML = `<p>Sorry, there was an issue. Please try again later.</p>`;
             }
         } else {
-            // If no exercise in the URL, show a welcome message or instructions
             const botMessage = document.createElement('div');
             botMessage.classList.add('chat-message', 'bot-message');
             botMessage.innerHTML = `<p>Welcome to FitBot! Please select an exercise to get more details or ask me anything about fitness.</p>`;
             chatMessages.appendChild(botMessage);
-
-            // Scroll to the bottom
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
-        // Send button functionality (send user input to chatbot)
         sendButton.addEventListener('click', async () => {
             const message = userInput.value.trim();
             if (message) {
-                // Display user message
                 const userMessage = document.createElement('div');
                 userMessage.classList.add('chat-message', 'user-message');
                 userMessage.innerHTML = `<p>${message}</p>`;
                 chatMessages.appendChild(userMessage);
 
-                // Placeholder bot message (we'll replace it after the API call)
                 const botMessage = document.createElement('div');
                 botMessage.classList.add('chat-message', 'bot-message');
                 botMessage.innerHTML = `<p>Loading...</p>`;
                 chatMessages.appendChild(botMessage);
 
-                // Scroll to the bottom
                 chatMessages.scrollTop = chatMessages.scrollHeight;
-
-                // Clear input field
                 userInput.value = '';
 
                 try {
-                    // Initialize the Google Generative AI client
-                    const API_KEY = 'AIzaSyD_aIsfF0GxOCVKMjD8dYhHSslcd56qG20'; // Handle securely in production!
+                    const API_KEY = 'AIzaSyD_aIsfF0GxOCVKMjD8dYhHSslcd56qG20';
                     const genAI = new GoogleGenerativeAI(API_KEY);
                     const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
-                    // Use the input as the prompt for the model
                     const result = await model.generateContent(message);
                     const response = await result.response.text();
 
-                    // Remove the "Loading..." message
                     botMessage.remove();
 
-                    // Display the bot's reply
                     const botReplyMessage = document.createElement('div');
                     botReplyMessage.classList.add('chat-message', 'bot-message');
                     botReplyMessage.innerHTML = `<p>${response}</p>`;
                     chatMessages.appendChild(botReplyMessage);
 
-                    // Scroll to the bottom after adding the new message
                     chatMessages.scrollTop = chatMessages.scrollHeight;
                 } catch (error) {
                     console.error('Error communicating with Google Generative AI:', error);
-                    // In case of error, show an error message
                     botMessage.innerHTML = `<p>Sorry, there was an issue. Please try again later.</p>`;
                 }
             }
