@@ -287,3 +287,42 @@ body.dark-mode .share-message p {
   margin-top: 10px;
   text-align: center;
 }
+
+/* camera styles */
+
+#vidcontainer
+{
+  display: flex;
+  align-items: center;
+  align-content: center;
+  flex-direction: column;
+}
+
+#controls
+{
+  display: flex;
+  align-items: center;
+  align-content: center;
+  flex-direction: column;
+}
+
+#start, #stop
+{
+  margin-top: 10px;
+}
+
+#title
+{
+  align-items: center;
+  align-content: center;
+  align-self: center;
+  text-align: center;
+}
+
+.content_home
+{
+  display: flex;
+  align-items: center;
+  align-content: center;
+  flex-direction: column;
+}
