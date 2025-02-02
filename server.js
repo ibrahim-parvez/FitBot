@@ -5,7 +5,7 @@ const {
   VertexAI
 } = require('@google-cloud/vertexai');
 
-const project = 'northern-carver-449715-m5';
+const project = 'your-cloud-project';
 const location = 'us-central1';
 const textModel =  'gemini-1.0-pro';
 const visionModel = 'gemini-1.0-pro-vision';
@@ -33,18 +33,34 @@ const generativeModelPreview = vertexAI.preview.getGenerativeModel({
     model: textModel,
 });
 
-async function multiPartContentVideo() {
-  const filePart = {fileData: {fileUri: 'gs://cloud-samples-data/video/animals.mp4', mimeType: 'video/mp4'}};
-  const textPart = {text: 'What is in the video?'};
-  const request = {
-      contents: [{role: 'user', parts: [textPart, filePart]}],
-    };
-  const streamingResult = await generativeVisionModel.generateContentStream(request);
-  for await (const item of streamingResult.stream) {
-    console.log('stream chunk: ', JSON.stringify(item));
-  }
-  const aggregatedResponse = await streamingResult.response;
-  console.log(aggregatedResponse.candidates[0].content);
-}
+/**
+ * TODO(developer): Update these variables before running the sample.
+ */
+async function analyze_video_with_audio(projectId = 'PROJECT_ID') {
+  const vertexAI = new VertexAI({project: projectId, location: 'us-central1'});
 
-multiPartContentVideo();
+  const generativeModel = vertexAI.getGenerativeModel({
+    model: 'gemini-1.5-flash-001',
+  });
+
+  const filePart = {
+    file_data: {
+      file_uri: 'exercise.mp4',
+      mime_type: 'video/mp4',
+    },
+  };
+  const textPart = {
+    text: `
+    Provide a description of the video.
+    What exercise is being done? How accurately is it being performed?
+    What could the trainee improve on? Give tips and tricks regarding the exercise.`,
+  };
+
+  const request = {
+    contents: [{role: 'user', parts: [filePart, textPart]}],
+  };
+
+  const resp = await generativeModel.generateContent(request);
+  const contentResponse = await resp.response;
+  console.log(JSON.stringify(contentResponse));
+}
