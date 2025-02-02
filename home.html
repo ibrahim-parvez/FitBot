@@ -119,12 +119,24 @@
                 <div class="card-body">
                     <h5 class="card-title">Exercises</h5>
                     <ul class="list-group">
-                        <li class="list-group-item">Strech (5 mins)</li>
-                        <li class="list-group-item">Yoga/Pilates (45 mins)</li>
-                        <li class="list-group-item">Cool-down (5 mins)</li>
+                        <li class="list-group-item" data-exercise="Stretch">Strech (5 mins)</li>
+                        <li class="list-group-item" data-exercise="Yoga/Pilates">Yoga/Pilates (45 mins)</li>
+                        <li class="list-group-item" data-exercise="Cool Down Exercises">Cool-down (5 mins)</li>
                     </ul>
                 </div>
             </div>
+
+            <script>
+                const exerciseItems = document.querySelectorAll('.list-group-item');
+                
+                exerciseItems.forEach(item => {
+                    item.addEventListener('click', function() {
+                        const exerciseName = item.getAttribute('data-exercise');
+                        // Redirect to chatbot.html with the exercise name in the URL
+                        window.location.href = `chatbot.html?exercise=${encodeURIComponent(exerciseName)}`;
+                    });
+                });
+            </script>
 
             <!-- Motivational Quote Section -->
             <div class="quote-banner mt-4 text-center">

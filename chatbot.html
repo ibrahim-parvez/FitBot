@@ -144,13 +144,9 @@
             <hr>
 
             <!-- Chat Container -->
-            <div class="chat-container">
+            <div class="chat-container" style="height: 600px;">
                 <!-- Chat Messages -->
                 <div class="chat-messages" id="chatMessages">
-                    <!-- Example message -->
-                    <div class="chat-message bot-message">
-                        <p>Hello! How can I help you with your fitness today?</p>
-                    </div>
                 </div>
 
                 <!-- Chat Input -->
@@ -204,13 +200,82 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
 
-    <script>
-        // Get elements
+    <script type="importmap">
+        {
+          "imports": {
+            "@google/generative-ai": "https://esm.run/@google/generative-ai"
+          }
+        }
+    </script>
+
+    <script type="module">
+        import { GoogleGenerativeAI } from "@google/generative-ai";
+
+        // Capture the 'exercise' query parameter from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const exerciseName = urlParams.get('exercise');
+
+        // Get chat message container
+        const chatMessages = document.getElementById('chatMessages');
         const sendButton = document.getElementById('sendButton');
         const userInput = document.getElementById('userInput');
-        const chatMessages = document.getElementById('chatMessages');
 
-        // Add event listener for Send button click
+        // If exerciseName exists in the URL, ask about the exercise right away
+        if (exerciseName) {
+            const userMessage = document.createElement('div');
+            userMessage.classList.add('chat-message', 'user-message');
+            userMessage.innerHTML = `<p>How do I do ${exerciseName}?</p>`;
+            chatMessages.appendChild(userMessage);
+
+            // Placeholder bot message (we'll replace it after the API call)
+            const botMessage = document.createElement('div');
+            botMessage.classList.add('chat-message', 'bot-message');
+            botMessage.innerHTML = `<p>Loading...</p>`;
+            chatMessages.appendChild(botMessage);
+
+            // Scroll to the bottom
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // Initialize the Google Generative AI client
+            try {
+                const API_KEY = 'AIzaSyD_aIsfF0GxOCVKMjD8dYhHSslcd56qG20'; // Handle securely in production!
+                const genAI = new GoogleGenerativeAI(API_KEY);
+                const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+
+                // Create the prompt for the exercise
+                const prompt = `Give a short description and one or two YouTube videos for how to do ${exerciseName}.`;
+
+                // Call the API with the prompt
+                const result = await model.generateContent(prompt);
+                const response = await result.response.text();
+
+                // Remove the "Loading..." message
+                botMessage.remove();
+
+                // Display the bot's reply (description + YouTube links)
+                const botReplyMessage = document.createElement('div');
+                botReplyMessage.classList.add('chat-message', 'bot-message');
+                botReplyMessage.innerHTML = `<p>${response}</p>`;
+                chatMessages.appendChild(botReplyMessage);
+
+                // Scroll to the bottom
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            } catch (error) {
+                console.error('Error communicating with Google Generative AI:', error);
+                botMessage.innerHTML = `<p>Sorry, there was an issue. Please try again later.</p>`;
+            }
+        } else {
+            // If no exercise in the URL, show a welcome message or instructions
+            const botMessage = document.createElement('div');
+            botMessage.classList.add('chat-message', 'bot-message');
+            botMessage.innerHTML = `<p>Welcome to FitBot! Please select an exercise to get more details or ask me anything about fitness.</p>`;
+            chatMessages.appendChild(botMessage);
+
+            // Scroll to the bottom
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Send button functionality (send user input to chatbot)
         sendButton.addEventListener('click', async () => {
             const message = userInput.value.trim();
             if (message) {
@@ -220,54 +285,46 @@
                 userMessage.innerHTML = `<p>${message}</p>`;
                 chatMessages.appendChild(userMessage);
 
-                // Scroll to the bottom of the chat
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-
-                // Clear input field
-                userInput.value = '';
-
-                // Display placeholder bot message (we'll replace this after API response)
+                // Placeholder bot message (we'll replace it after the API call)
                 const botMessage = document.createElement('div');
                 botMessage.classList.add('chat-message', 'bot-message');
                 botMessage.innerHTML = `<p>Loading...</p>`;
                 chatMessages.appendChild(botMessage);
 
-                // Scroll to the bottom again to show the loading message
+                // Scroll to the bottom
                 chatMessages.scrollTop = chatMessages.scrollHeight;
 
+                // Clear input field
+                userInput.value = '';
+
                 try {
-                    // Send the user's message to your backend (Express server)
-                    const response = await fetch('http://localhost:3000/chat', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ message }),
-                    });
+                    // Initialize the Google Generative AI client
+                    const API_KEY = 'AIzaSyD_aIsfF0GxOCVKMjD8dYhHSslcd56qG20'; // Handle securely in production!
+                    const genAI = new GoogleGenerativeAI(API_KEY);
+                    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
-                    // Get the chatbot's reply
-                    const data = await response.json();
-                    const chatbotReply = data.reply;
+                    // Use the input as the prompt for the model
+                    const result = await model.generateContent(message);
+                    const response = await result.response.text();
 
-                    // Remove "Loading..." message
+                    // Remove the "Loading..." message
                     botMessage.remove();
 
-                    // Display the chatbot's reply
+                    // Display the bot's reply
                     const botReplyMessage = document.createElement('div');
                     botReplyMessage.classList.add('chat-message', 'bot-message');
-                    botReplyMessage.innerHTML = `<p>${chatbotReply}</p>`;
+                    botReplyMessage.innerHTML = `<p>${response}</p>`;
                     chatMessages.appendChild(botReplyMessage);
 
                     // Scroll to the bottom after adding the new message
                     chatMessages.scrollTop = chatMessages.scrollHeight;
                 } catch (error) {
-                    console.error('Error communicating with server:', error);
+                    console.error('Error communicating with Google Generative AI:', error);
                     // In case of error, show an error message
                     botMessage.innerHTML = `<p>Sorry, there was an issue. Please try again later.</p>`;
                 }
             }
         });
-
     </script>
 </body>
 
