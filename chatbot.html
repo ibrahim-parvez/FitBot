@@ -355,43 +355,52 @@
         }
 
         sendButton.addEventListener('click', async () => {
-            const message = userInput.value.trim();
-            if (message) {
-                const userMessage = document.createElement('div');
-                userMessage.classList.add('chat-message', 'user-message');
-                userMessage.innerHTML = `<p>${message}</p>`;
-                chatMessages.appendChild(userMessage);
+        const message = userInput.value.trim();
+        if (message) {
+            // Create the full prompt that includes the hidden query and the user's input
+            const hiddenQuery = "The query you are about to receive is for a chatbot Fitness AI app. Users might ask how to do exercises or how to maintain health, etc. Give clear short answers.";
+            const fullPrompt = hiddenQuery + " " + message;
 
-                const botMessage = document.createElement('div');
-                botMessage.classList.add('chat-message', 'bot-message');
-                botMessage.innerHTML = `<p>Loading...</p>`;
-                chatMessages.appendChild(botMessage);
+            // Add the user message to the chat interface (this part stays visible)
+            const userMessage = document.createElement('div');
+            userMessage.classList.add('chat-message', 'user-message');
+            userMessage.innerHTML = `<p>${message}</p>`;
+            chatMessages.appendChild(userMessage);
+
+            // Add a loading message for the bot
+            const botMessage = document.createElement('div');
+            botMessage.classList.add('chat-message', 'bot-message');
+            botMessage.innerHTML = `<p>Loading...</p>`;
+            chatMessages.appendChild(botMessage);
+
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            userInput.value = '';
+
+            try {
+                const API_KEY = 'AIzaSyD_aIsfF0GxOCVKMjD8dYhHSslcd56qG20';
+                const genAI = new GoogleGenerativeAI(API_KEY);
+                const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+
+                // Send the combined prompt (hidden query + user message) to the AI
+                const result = await model.generateContent(fullPrompt);
+                const response = await result.response.text();
+
+                // Remove the loading message
+                botMessage.remove();
+
+                // Show the AI response in the chat
+                const botReplyMessage = document.createElement('div');
+                botReplyMessage.classList.add('chat-message', 'bot-message');
+                botReplyMessage.innerHTML = `<p>${response}</p>`;
+                chatMessages.appendChild(botReplyMessage);
 
                 chatMessages.scrollTop = chatMessages.scrollHeight;
-                userInput.value = '';
-
-                try {
-                    const API_KEY = 'AIzaSyD_aIsfF0GxOCVKMjD8dYhHSslcd56qG20';
-                    const genAI = new GoogleGenerativeAI(API_KEY);
-                    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
-
-                    const result = await model.generateContent(message);
-                    const response = await result.response.text();
-
-                    botMessage.remove();
-
-                    const botReplyMessage = document.createElement('div');
-                    botReplyMessage.classList.add('chat-message', 'bot-message');
-                    botReplyMessage.innerHTML = `<p>${response}</p>`;
-                    chatMessages.appendChild(botReplyMessage);
-
-                    chatMessages.scrollTop = chatMessages.scrollHeight;
-                } catch (error) {
-                    console.error('Error communicating with Google Generative AI:', error);
-                    botMessage.innerHTML = `<p>Sorry, there was an issue. Please try again later.</p>`;
-                }
+            } catch (error) {
+                console.error('Error communicating with Google Generative AI:', error);
+                botMessage.innerHTML = `<p>Sorry, there was an issue. Please try again later.</p>`;
             }
-        });
+        }
+    });
     </script>
 </body>
 
