@@ -19,56 +19,49 @@ async function main () {
     })
   
     buttonStart.addEventListener('click', () => {
-      mediaRecorder.start() // <4>
-      buttonStart.setAttribute('disabled', '')
+      mediaRecorder.start();
+      buttonStart.setAttribute('disabled', '');
       buttonStart.style.display = 'none';
       buttonStop.removeAttribute('disabled');
-      buttonStop.style.display = 'block'
-      buttonStart.style.display = 'none'
-    })
-  
+      buttonStop.style.display = 'block';
+    });
+    
     buttonStop.addEventListener('click', () => {
-      mediaRecorder.stop() // <5>
-      buttonStart.removeAttribute('disabled')
+      mediaRecorder.stop();
+      buttonStart.removeAttribute('disabled');
       buttonStart.style.backgroundColor = 'rgb(210, 36, 36)';
-      buttonStop.setAttribute('disabled', '')
-      buttonStop.style.display = 'none'
-      buttonStart.style.display = 'block'
-    })
-  
+      buttonStop.setAttribute('disabled', '');
+      buttonStop.style.display = 'none';
+      buttonStart.style.display = 'block';
+    });
+    
     mediaRecorder.addEventListener('dataavailable', async event => {
       const videoBlob = event.data;
       const videoUrl = URL.createObjectURL(videoBlob);
+    
       // Change title
       const pageTitle = document.getElementById('title');
       pageTitle.innerHTML = "Confirm Video";
+    
       // Disable the live video feed
       const liveVideo = document.getElementById('vidcontainer');
       liveVideo.innerHTML = '';
+    
       // Create a video element to display the recorded video
       const videoElement = document.createElement('video');
       videoElement.controls = true;
-      videoElement.playsinline = false;
-      videoElement.autoplay = false;
       videoElement.src = videoUrl;
-      videoElement.width = 640; // Set width as needed
-      videoElement.height = 480; // Set height as needed
+      videoElement.width = 640;
+      videoElement.height = 480;
     
       // Create a confirm button
       const confirmButton = document.createElement('button');
       confirmButton.textContent = 'Confirm';
-      confirmButton.addEventListener('click', async () => {
-        const response = await fetch(videoUrl);
-        const blob = await response.blob();
-        const formData = new FormData();
-        formData.append('video', blob, 'recorded-video.mp4');
-
-        await fetch('http://localhost:3000/upload', {
-          method: 'POST',
-          body: formData
-        });
+      confirmButton.addEventListener('click', () => {
+        // Redirect to the chatbot page with the video URL as a query parameter
+        window.location.href = `chatbot_video.html?videoUrl=${encodeURIComponent(videoUrl)}`;
       });
-
+    
       // Create a back button
       const backButton = document.createElement('button');
       backButton.textContent = 'Back';
@@ -78,10 +71,11 @@ async function main () {
     
       // Clear existing elements and add the new video element and confirm button
       const controlsDiv = document.getElementById('controls');
-      controlsDiv.innerHTML = ''; // Clear existing controls
+      controlsDiv.innerHTML = '';
       controlsDiv.appendChild(videoElement);
       controlsDiv.appendChild(confirmButton);
       controlsDiv.appendChild(backButton);
     });
+    
   }
 main()
