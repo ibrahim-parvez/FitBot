@@ -21,13 +21,19 @@ async function main () {
     buttonStart.addEventListener('click', () => {
       mediaRecorder.start() // <4>
       buttonStart.setAttribute('disabled', '')
-      buttonStop.removeAttribute('disabled')
+      buttonStart.style.display = 'none';
+      buttonStop.removeAttribute('disabled');
+      buttonStop.style.display = 'block'
+      buttonStart.style.display = 'none'
     })
   
     buttonStop.addEventListener('click', () => {
       mediaRecorder.stop() // <5>
       buttonStart.removeAttribute('disabled')
+      buttonStart.style.backgroundColor = 'rgb(210, 36, 36)';
       buttonStop.setAttribute('disabled', '')
+      buttonStop.style.display = 'none'
+      buttonStart.style.display = 'block'
     })
   
     mediaRecorder.addEventListener('dataavailable', async event => {
@@ -51,39 +57,16 @@ async function main () {
       // Create a confirm button
       const confirmButton = document.createElement('button');
       confirmButton.textContent = 'Confirm';
-      confirmButton.addEventListener('click', () => {
-        const reader = new FileReader();
-        reader.readAsDataURL(videoBlob);
-        reader.onloadend = function () {
-          const videoDataUrl = reader.result.split(',')[1]; // Get base64 part
-      
-          // Prepare the request payload
-          const payload = {
-            video: {
-              content: videoDataUrl
-            }
-          };
-      
-          // Send the video to the proxy server
-          fetch('http://localhost:3001/proxy', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(payload)
-          })
-          .then(response => response.json())
-          .then(data => {
-            // Handle the response
-            console.log('API Response:', data);
-            // Process the response to get feedback on the exercise
-            const feedback = data.responses[0].annotationResults[0].segmentLabelAnnotations[0].description;
-            alert('Exercise Feedback: ' + feedback);
-          })
-          .catch(error => {
-            console.error('Error:', error);
-          });
-        };
+      confirmButton.addEventListener('click', async () => {
+        const response = await fetch(videoUrl);
+        const blob = await response.blob();
+        const formData = new FormData();
+        formData.append('video', blob, 'recorded-video.mp4');
+
+        await fetch('http://localhost:3000/upload', {
+          method: 'POST',
+          body: formData
+        });
       });
 
       // Create a back button

@@ -1,38 +1,50 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const fetch = require('node-fetch');
-const app = express();
-const port = 3001;
+const {
+  FunctionDeclarationSchemaType,
+  HarmBlockThreshold,
+  HarmCategory,
+  VertexAI
+} = require('@google-cloud/vertexai');
 
-app.use(bodyParser.json());
+const project = 'northern-carver-449715-m5';
+const location = 'us-central1';
+const textModel =  'gemini-1.0-pro';
+const visionModel = 'gemini-1.0-pro-vision';
 
-// Add CORS headers
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:3000');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  next();
+const vertexAI = new VertexAI({project: project, location: location});
+
+// Instantiate Gemini models
+const generativeModel = vertexAI.getGenerativeModel({
+    model: textModel,
+    // The following parameters are optional
+    // They can also be passed to individual content generation requests
+    safetySettings: [{category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT, threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE}],
+    generationConfig: {maxOutputTokens: 256},
+    systemInstruction: {
+      role: 'system',
+      parts: [{"text": `For example, you are a helpful customer service agent.`}]
+    },
 });
 
-app.post('/proxy', async (req, res) => {
-  const API_KEY = "AIzaSyD_aIsfF0GxOCVKMjD8dYhHSslcd56qG20";
-  const url = `https://vision.googleapis.com/v1/videos:annotate?key=${API_KEY}`;
+const generativeVisionModel = vertexAI.getGenerativeModel({
+    model: visionModel,
+});
 
-  try {
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(req.body)
-    });
-    const data = await response.json();
-    res.json(data);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+const generativeModelPreview = vertexAI.preview.getGenerativeModel({
+    model: textModel,
+});
+
+async function multiPartContentVideo() {
+  const filePart = {fileData: {fileUri: 'gs://cloud-samples-data/video/animals.mp4', mimeType: 'video/mp4'}};
+  const textPart = {text: 'What is in the video?'};
+  const request = {
+      contents: [{role: 'user', parts: [textPart, filePart]}],
+    };
+  const streamingResult = await generativeVisionModel.generateContentStream(request);
+  for await (const item of streamingResult.stream) {
+    console.log('stream chunk: ', JSON.stringify(item));
   }
-});
+  const aggregatedResponse = await streamingResult.response;
+  console.log(aggregatedResponse.candidates[0].content);
+}
 
-app.listen(port, () => {
-  console.log(`Proxy server running at http://localhost:${port}`);
-});
+multiPartContentVideo();
