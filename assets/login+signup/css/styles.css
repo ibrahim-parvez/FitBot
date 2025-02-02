@@ -1,3 +1,25 @@
+/* Set the background image */
+body {
+    background-image: url('https://media.istockphoto.com/id/954315204/photo/rows-of-dumbbells-in-the-gym-with-hign-contrast-and-color-tone-sport-and-health-concept.jpg?s=612x612&w=0&k=20&c=WDIhTk1jiO7b__UBtTwVDkGDrAwJs4IMmvv8bNMoRf8=');
+    background-size: cover; /* Ensure the image covers the entire screen */
+    background-position: center center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    height: 100vh; /* Ensure the body takes the full height of the viewport */
+    margin: 0; /* Remove default margin */
+}
+
+/* Optional: Adjust the opacity of the background image (optional) */
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+    z-index: -1; /* Place behind the content */
+}
+
 /* Global Styles */
 * {
     box-sizing: border-box;
@@ -16,17 +38,22 @@ body {
     padding-top: 80px;
 }
 
+/* Header with gradient and opacity */
 #header {
     width: 100%;
-    background-color: #27a699;
+    background: linear-gradient(180deg, rgba(39, 166, 153, 0.8), rgba(39, 166, 153, 0));
+    background-size: cover;
+    background-position: center center;
     color: white;
     text-align: center;
-    padding: 20px 0;
+    padding: 40px 0;
     position: absolute;
     top: 0;
     left: 0;
+    z-index: 1;
 }
 
+/* Header Text */
 #header h1 {
     font-size: 2rem;
     font-weight: 600;

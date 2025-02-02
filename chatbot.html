@@ -205,12 +205,13 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
 
     <script>
-        // Simple chatbot interaction logic
+        // Get elements
         const sendButton = document.getElementById('sendButton');
         const userInput = document.getElementById('userInput');
         const chatMessages = document.getElementById('chatMessages');
 
-        sendButton.addEventListener('click', () => {
+        // Add event listener for Send button click
+        sendButton.addEventListener('click', async () => {
             const message = userInput.value.trim();
             if (message) {
                 // Display user message
@@ -219,19 +220,54 @@
                 userMessage.innerHTML = `<p>${message}</p>`;
                 chatMessages.appendChild(userMessage);
 
-                // Simulate bot response
-                const botMessage = document.createElement('div');
-                botMessage.classList.add('chat-message', 'bot-message');
-                botMessage.innerHTML = `<p>---------</p>`;
-                chatMessages.appendChild(botMessage);
-
                 // Scroll to the bottom of the chat
                 chatMessages.scrollTop = chatMessages.scrollHeight;
 
                 // Clear input field
                 userInput.value = '';
+
+                // Display placeholder bot message (we'll replace this after API response)
+                const botMessage = document.createElement('div');
+                botMessage.classList.add('chat-message', 'bot-message');
+                botMessage.innerHTML = `<p>Loading...</p>`;
+                chatMessages.appendChild(botMessage);
+
+                // Scroll to the bottom again to show the loading message
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+
+                try {
+                    // Send the user's message to your backend (Express server)
+                    const response = await fetch('http://localhost:3000/chat', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ message }),
+                    });
+
+                    // Get the chatbot's reply
+                    const data = await response.json();
+                    const chatbotReply = data.reply;
+
+                    // Remove "Loading..." message
+                    botMessage.remove();
+
+                    // Display the chatbot's reply
+                    const botReplyMessage = document.createElement('div');
+                    botReplyMessage.classList.add('chat-message', 'bot-message');
+                    botReplyMessage.innerHTML = `<p>${chatbotReply}</p>`;
+                    chatMessages.appendChild(botReplyMessage);
+
+                    // Scroll to the bottom after adding the new message
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                } catch (error) {
+                    console.error('Error communicating with server:', error);
+                    // In case of error, show an error message
+                    botMessage.innerHTML = `<p>Sorry, there was an issue. Please try again later.</p>`;
+                }
             }
         });
+
     </script>
 </body>
 
