@@ -261,6 +261,27 @@
 
             chatMessages.scrollTop = chatMessages.scrollHeight;
 
+            // Function to format the response (add HTML and structure it)
+            function formatResponse(response) {
+                let formattedText = response;
+
+                // Replace bold markdown (**bold**) with <strong>
+                formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+                // Replace italic markdown (*italic*) with <em>
+                formattedText = formattedText.replace(/\*(.*?)\*/g, '<em>$1</em>');
+
+                // Replace new line and paragraph breaks
+                formattedText = formattedText.replace(/\n/g, '<br>');
+
+                // Replace bullet points (* item) with <ul> and <li> tags
+                formattedText = formattedText.replace(/^\*\s(.*)$/gm, '<ul><li>$1</li></ul>');
+
+                // Handle any other formatting as needed, e.g., indentation, lists, etc.
+
+                return formattedText;
+            }
+
             try {
                 const API_KEY = 'AIzaSyD_aIsfF0GxOCVKMjD8dYhHSslcd56qG20';
                 const genAI = new GoogleGenerativeAI(API_KEY);
@@ -271,8 +292,11 @@
                 const resultDescription = await model.generateContent(promptDescription);
                 const descriptionResponse = await resultDescription.response.text();
 
+                // Format the response to handle asterisks for bold, italics, etc.
+                const formattedDescription = formatResponse(descriptionResponse.trim());
+
                 // Display description
-                botMessage.innerHTML = `<p>${descriptionResponse.trim()}</p>`;
+                botMessage.innerHTML = `<p>${formattedDescription}</p>`;
                 chatMessages.scrollTop = chatMessages.scrollHeight;
 
                 // Second Call: Get the first YouTube video URL
