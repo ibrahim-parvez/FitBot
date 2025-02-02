@@ -59,8 +59,8 @@
 
         const prompt = `Pretend you are a fitness planner for ${name} who is ${age} years old and is exercising at ${location}.
     They weigh ${weight}. Their height is ${height}. Design a weekly exercise schedule tailored to ${workoutplan} with a difficulty level 
-    of ${build}. Ensure that all exercises are within the timings of ${freedays}. Save it strictly as a JSON string (nothing else. no back ticks) 
-    in the following structure:
+    of ${build}. Ensure that all exercises are within the timings of ${freedays}. Add the split category as well (push, pull, legs). Save 
+    it strictly as a JSON multi line string (nothing else. no back ticks) in the following structure:
     
     Day1 
     {
@@ -95,37 +95,10 @@
         }
     }`;
 
+    const result = await model.generateContent(prompt);
+    const response = await result.response.text()
+    console.log(response);
 
-        async function fetchWorkoutPlan() {
-            try {
-                const result = await model.generateContent(prompt);
-                const jsonResponse = JSON.parse(result.response.text());  // ✅ Extract JSON string and parse it
-
-                // ✅ Save response for later use
-                localStorage.setItem("workoutPlan", JSON.stringify(jsonResponse));
-
-                return jsonResponse;
-            } catch (error) {
-                console.error("Error fetching workout plan:", error);
-            }
-        }
-
-        // ✅ Function to download JSON file
-        function downloadJsonFile(data, filename = "workout_plan.json") {
-            const jsonString = JSON.stringify(data, null, 2);
-            const blob = new Blob([jsonString], { type: "application/json" });
-            const a = document.createElement("a");
-            a.href = URL.createObjectURL(blob);
-            a.download = filename;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-        }
-        // ...
-
-        window.addEventListener("load", async () => {
-        await fetchWorkoutPlan();
-        });
     </script>
 </head>
 
@@ -139,17 +112,16 @@
 
             <!-- Today's Schedule Card -->
             <div class="card mt-4">
-                <h4>Today's Schedule</h4>
+                <h4>Today's Schedule (Sunday)</h4>
                 <div class="card-header">
-                    Pull Day
+                    Full body
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">Exercises</h5>
                     <ul class="list-group">
-                        <li class="list-group-item">Pull-ups (3x10)</li>
-                        <li class="list-group-item">Deadlifts (2x5)</li>
-                        <li class="list-group-item">Bent-over Rows (3x5)</li>
-                        <li class="list-group-item">Bicep Curls (3x10)</li>
+                        <li class="list-group-item">Strech (5 mins)</li>
+                        <li class="list-group-item">Yoga/Pilates (45 mins)</li>
+                        <li class="list-group-item">Cool-down (5 mins)</li>
                     </ul>
                 </div>
             </div>
@@ -177,7 +149,7 @@
                             Tuesday
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title">Focus: Pull</h5>
+                            <h5 class="card-title">Focus: Rest</h5>
                         </div>
                     </div>
 
@@ -186,7 +158,7 @@
                             Wednesday
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title">Focus: Legs</h5>
+                            <h5 class="card-title">Focus: Pull</h5>
                         </div>
                     </div>
 
@@ -204,7 +176,23 @@
                             Friday
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title">Focus: Push</h5>
+                            <h5 class="card-title">Focus: Rest</h5>
+                        </div>
+                    </div>
+                    <div class="upcoming-workout-card">
+                        <div class="card-header">
+                            Saturday
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Focus: Legs</h5>
+                        </div>
+                    </div>
+                    <div class="upcoming-workout-card">
+                        <div class="card-header">
+                            Sunday
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Focus: Full Body</h5>
                         </div>
                     </div>
                 </div>
