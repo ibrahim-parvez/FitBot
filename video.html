@@ -25,6 +25,16 @@
     <link rel="stylesheet" href="assets/css/bootstrap.rtl.min.css">
     <link rel="stylesheet" href="assets/css/navbar.css">
     <link href="assets/js/navbar.js">
+    <script type="importmap">
+        {
+          "imports": {
+            "@google/generative-ai": "https://esm.run/@google/generative-ai"
+          }
+        }
+    </script>
+    <script type="module">
+        import { GoogleGenerativeAI } from "@google/generative-ai";
+    </script>
 </head>
 
 <body>
@@ -33,6 +43,15 @@
             <h1 class="text-center">AI Video Analyzer</h1>
         </div>
 
+        <h1 id="title">Camera</h1>
+    <div id = "vidcontainer">
+        <video playsinline id="video" autoplay></video>
+    </div>
+    <div id="controls">
+        <button id="start">Start Recording</button>
+        <button id="stop" disabled>Stop Recording</button>
+    </div>
+    <script src="./assets/js/camera.js"></script>
         <!-- Bottom Navbar -->
         <nav class="nav container">
             <div class="nav__menu" id="nav-menu">

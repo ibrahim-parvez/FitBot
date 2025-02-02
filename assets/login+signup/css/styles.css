@@ -203,6 +203,11 @@ button:hover {
     text-decoration: underline;
 }
 
+.login-link
+{
+    padding-top: 15px;
+}
+
 #footer 
 {
     width: 100%;
@@ -264,4 +269,40 @@ button
     border-radius: 5px;
     cursor: pointer;
     margin-top: 15px;
+}
+
+select 
+{
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    margin-bottom: 10px;
+}
+
+select:focus 
+{
+    border-color: #27a699;
+    outline: none;
+    background-color: #fff;
+}
+
+textarea 
+{
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    margin-bottom: 10px;
+    resize: vertical;
+}
+
+textarea:focus {
+    border-color: #27a699;
+    outline: none;
+    background-color: #fff;
 }
