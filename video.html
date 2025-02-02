@@ -48,8 +48,60 @@
         <video playsinline id="video" autoplay></video>
     </div>
     <div id="controls">
+        <!-- video.html -->
         <button id="start">Start Recording</button>
         <button id="stop" disabled>Stop Recording</button>
+
+        <!-- Add this script to handle the redirection -->
+        <script>
+            const startButton = document.getElementById('start');
+            const stopButton = document.getElementById('stop');
+            const videoElement = document.getElementById('video');
+            let mediaRecorder;
+            let recordedChunks = [];
+
+            startButton.addEventListener('click', () => {
+                // Start the video recording when the "Start Recording" button is clicked
+                navigator.mediaDevices.getUserMedia({ video: true })
+                    .then(stream => {
+                        videoElement.srcObject = stream;
+                        mediaRecorder = new MediaRecorder(stream);
+                        
+                        mediaRecorder.ondataavailable = event => {
+                            recordedChunks.push(event.data);
+                        };
+
+                        mediaRecorder.onstop = () => {
+                            const blob = new Blob(recordedChunks, { type: 'video/webm' });
+                            // This is where you would upload the video in the future
+                            // For now, we're just logging the video data
+                            console.log("Video recorded:", blob);
+                        };
+
+                        mediaRecorder.start();
+                        startButton.disabled = true;
+                        stopButton.disabled = false;
+                    })
+                    .catch(error => {
+                        console.error("Error accessing webcam: ", error);
+                    });
+            });
+
+            stopButton.addEventListener('click', () => {
+                // Stop the video recording when the "Stop Recording" button is clicked
+                if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+                    mediaRecorder.stop();
+                    startButton.disabled = false;
+                    stopButton.disabled = true;
+
+                    // Redirect to the chatbot page
+                    window.location.href = 'chatbot.html?videoAnalysis=video';
+                }
+            });
+
+        </script>
+
+
     </div>
     <script src="./assets/js/camera.js"></script>
         <!-- Bottom Navbar -->
