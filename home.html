@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,26 +23,243 @@
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/bootstrap.rtl.css">
     <link rel="stylesheet" href="assets/css/bootstrap.rtl.min.css">
-</head>
-<body>
+    <link rel="stylesheet" href="assets/css/navbar.css">
+    <link href="assets/js/navbar.js">
 
+    <script type="importmap">
+        {
+          "imports": {
+            "@google/generative-ai": "https://esm.run/@google/generative-ai"
+          }
+        }
+    </script>
+
+    <script type="module">
+        import { GoogleGenerativeAI } from "@google/generative-ai";
+
+        // Fetch your API_KEY
+        const API_KEY = "AIzaSyD_aIsfF0GxOCVKMjD8dYhHSslcd56qG20";
+
+        // Access your API key
+        const genAI = new GoogleGenerativeAI(API_KEY);
+
+        // ...
+
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+
+        const name = "Fitbot Test";
+        const height = "190 cm";
+        const weight = "130 kg";
+        const age = "19";
+        const build = "beginner";
+        const location = "home";
+        const freedays = "Monday 6-8pm, Wednesday 6-9pm, Saturday 2-4pm, Sunday 11am-1pm";
+        const workoutplan = "weight loss";
+
+        const prompt = `Pretend you are a fitness planner for ${name} who is ${age} years old and is exercising at ${location}.
+    They weigh ${weight}. Their height is ${height}. Design a weekly exercise schedule tailored to ${workoutplan} with a difficulty level 
+    of ${build}. Ensure that all exercises are within the timings of ${freedays}. Add the split category as well (push, pull, legs). Save 
+    it strictly as a JSON multi line string (nothing else. no back ticks) in the following structure:
+    
+    Day1 
+    {
+        ExerciseName
+        {
+            reps,
+            sets,
+            weight (if applicable)
+        },
+
+        ExerciseName
+        {
+            reps,
+            sets,
+            weight (if applicable)
+        }
+    },
+    Day 2
+    {
+        ExerciseName
+        {
+            reps,
+            sets,
+            weight (if applicable)
+        },
+
+        ExerciseName
+        {
+            reps,
+            sets,
+            weight (if applicable)
+        }
+    }`;
+
+    const result = await model.generateContent(prompt);
+    const response = await result.response.text()
+    console.log(response);
+
+    </script>
+</head>
+
+<body>
     <div class="main-content">
-        <div class="content">
-            <!-- Page content goes here -->
-            <h1 class="text-center">Welcome Back</h1>
-            <p class="text-center">Today's Schedule</p>
+        <div class="content_home">
+            <!-- Welcome Message -->
+            <p style="text-align: center; margin: 0;">FitBot</p>
+            <h1 class="text-center">Welcome Back Demo User!</h1>
+            <hr>
+
+            <!-- Today's Schedule Card -->
+            <div class="card mt-4">
+                <h4>Today's Schedule (Sunday)</h4>
+                <div class="card-header">
+                    Full body
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Exercises</h5>
+                    <ul class="list-group">
+                        <li class="list-group-item" data-exercise="Stretch">Strech (5 mins)</li>
+                        <li class="list-group-item" data-exercise="Yoga/Pilates">Yoga/Pilates (45 mins)</li>
+                        <li class="list-group-item" data-exercise="Cool Down Exercises">Cool-down (5 mins)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <script>
+                const exerciseItems = document.querySelectorAll('.list-group-item');
+                
+                exerciseItems.forEach(item => {
+                    item.addEventListener('click', function() {
+                        const exerciseName = item.getAttribute('data-exercise');
+                        // Redirect to chatbot.html with the exercise name in the URL
+                        window.location.href = `chatbot.html?exercise=${encodeURIComponent(exerciseName)}`;
+                    });
+                });
+            </script>
+
+            <!-- Motivational Quote Section -->
+            <div class="quote-banner mt-4 text-center">
+                <h5>"The only bad workout is the one that didn't happen."</h5>
+            </div>
+
+            <!-- Upcoming Workouts Horizontal Scroll -->
+            <div class="mt-4 upcoming">
+                <h4>Upcoming</h4>
+                <div class="upcoming-scroll-container">
+                    <div class="upcoming-workout-card">
+                        <div class="card-header">
+                            Monday
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Focus: Push</h5>
+                        </div>
+                    </div>
+
+                    <div class="upcoming-workout-card">
+                        <div class="card-header">
+                            Tuesday
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Focus: Rest</h5>
+                        </div>
+                    </div>
+
+                    <div class="upcoming-workout-card">
+                        <div class="card-header">
+                            Wednesday
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Focus: Pull</h5>
+                        </div>
+                    </div>
+
+                    <div class="upcoming-workout-card">
+                        <div class="card-header">
+                            Thursday
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Focus: Rest</h5>
+                        </div>
+                    </div>
+
+                    <div class="upcoming-workout-card">
+                        <div class="card-header">
+                            Friday
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Focus: Rest</h5>
+                        </div>
+                    </div>
+                    <div class="upcoming-workout-card">
+                        <div class="card-header">
+                            Saturday
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Focus: Legs</h5>
+                        </div>
+                    </div>
+                    <div class="upcoming-workout-card">
+                        <div class="card-header">
+                            Sunday
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Focus: Full Body</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <!-- Bottom Navbar -->
-        <nav class="navbar navbar-expand navbar-light bg-light navbar-bottom">
-            <div class="container-fluid justify-content-around">
-                <a class="btn btn-primary" href="#" role="button">Home</a>
-                <a class="btn btn-primary" href="#" role="button">Video</a>
-                <a class="btn btn-primary" href="#" role="button">Profile</a>
-                <a class="btn btn-primary" href="#" role="button">Settings</a>
+        <nav class="nav container">
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item">
+                        <a href="home.html" class="nav__link active-link">
+                            <i class='si-home' style="font-size: 23px;"></i>
+                            <span class="nav__name">Home</span>
+                        </a>
+                    </li>
+
+                    <li class="nav__item">
+                        <a href="video.html" class="nav__link">
+                            <i class='si-video' style="font-size: 23px;"></i>
+                            <span class="nav__name">AI</span>
+                        </a>
+                    </li>
+
+                    <li class="nav__item">
+                        <a href="chatbot.html" class="nav__link">
+                            <i class='si-message' style="font-size: 23px;"></i>
+                            <span class="nav__name">Chatbot</span>
+                        </a>
+                    </li>
+
+                    <li class="nav__item">
+                        <a href="profile.html" class="nav__link">
+                            <i class='si-user' style="font-size: 23px;"></i>
+                            <span class="nav__name">Profile</span>
+                        </a>
+                    </li>
+
+                    <li class="nav__item">
+                        <a href="settings.html" class="nav__link">
+                            <i class='si-virus' style="font-size: 23px;"></i>
+                            <span class="nav__name">Settings</span>
+                        </a>
+                    </li>
+                </ul>
             </div>
         </nav>
     </div>
 
+    <!-- Bootstrap JS & Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+
+    <script src="assets/js/main.js"></script>
 </body>
+
 </html>

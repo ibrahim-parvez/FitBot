@@ -1,0 +1,308 @@
+/* Set the background image */
+body {
+    background-image: url('https://media.istockphoto.com/id/954315204/photo/rows-of-dumbbells-in-the-gym-with-hign-contrast-and-color-tone-sport-and-health-concept.jpg?s=612x612&w=0&k=20&c=WDIhTk1jiO7b__UBtTwVDkGDrAwJs4IMmvv8bNMoRf8=');
+    background-size: cover; /* Ensure the image covers the entire screen */
+    background-position: center center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    height: 100vh; /* Ensure the body takes the full height of the viewport */
+    margin: 0; /* Remove default margin */
+}
+
+/* Optional: Adjust the opacity of the background image (optional) */
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+    z-index: -1; /* Place behind the content */
+}
+
+/* Global Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding-top: 80px;
+}
+
+/* Header with gradient and opacity */
+#header {
+    width: 100%;
+    background: linear-gradient(180deg, rgba(39, 166, 153, 0.8), rgba(39, 166, 153, 0));
+    background-size: cover;
+    background-position: center center;
+    color: white;
+    text-align: center;
+    padding: 40px 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+/* Header Text */
+#header h1 {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+/* Login Container */
+.login-container {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    margin-top: 140px;
+    text-align: center;
+    width: 350px;
+    max-width: 90%;
+    border: 1px solid #e1e1e1;
+}
+
+/* Title and Heading */
+h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Form Input Group */
+.input-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.input-group label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    background-color: #f9f9f9;
+    margin-bottom: 10px;
+}
+
+.input-group input:focus {
+    border-color: #27a699;
+    outline: none;
+    background-color: #fff;
+}
+
+/* Submit Button */
+button {
+    background-color: #27a699;
+    color: white;
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #27a699;
+}
+
+/* Sign Up Link */
+.signup-link {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.signup-link a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.signup-link a:hover {
+    text-decoration: underline;
+}
+
+/* Error Message */
+#error-message {
+    color: red;
+    display: none;
+    font-size: 14px;
+    margin-top: 15px;
+}
+
+/* Footer */
+#footer {
+    width: 100%;
+    background-color: #27a699;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    #header h1 {
+        font-size: 1.5rem;
+    }
+
+    .login-container {
+        width: 90%;
+        margin-top: 100px;
+        padding: 30px;
+    }
+
+    h2 {
+        font-size: 1.3rem;
+    }
+
+    button {
+        padding: 10px;
+    }
+}
+
+.signup-link 
+{
+    padding-top: 10px;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.signup-link a 
+{
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.signup-link a:hover 
+{
+    text-decoration: underline;
+}
+
+.login-link
+{
+    padding-top: 15px;
+}
+
+#footer 
+{
+    width: 100%;
+    background-color: #27a699;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    position: relative;
+    margin-top: auto;
+    top: 0;
+}
+
+.signup-container 
+{
+    display: flex;
+    flex-direction: column;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+    margin-top: 80px;
+    margin-bottom: 40px;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+/* Form fields */
+form 
+{
+    display: flex;
+    flex-direction: column;
+}
+
+label 
+{
+    text-align: left;
+    font-weight: bold;
+    margin: 10px 0 5px;
+}
+
+input 
+{
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button 
+{
+    background-color: #27a699;
+    color: white;
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+select 
+{
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    margin-bottom: 10px;
+}
+
+select:focus 
+{
+    border-color: #27a699;
+    outline: none;
+    background-color: #fff;
+}
+
+textarea 
+{
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    margin-bottom: 10px;
+    resize: vertical;
+}
+
+textarea:focus {
+    border-color: #27a699;
+    outline: none;
+    background-color: #fff;
+}

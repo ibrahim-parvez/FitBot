@@ -1,0 +1,119 @@
+{
+    "Monday": {
+      "Warm-up": {
+        "reps": "5 mins",
+        "sets": 1,
+        "weight": "Bodyweight"
+      },
+      "Squats": {
+        "reps": 10,
+        "sets": 3,
+        "weight": "Bodyweight"
+      },
+      "Push-ups (on knees if needed)": {
+        "reps": 8,
+        "sets": 3,
+        "weight": "Bodyweight"
+      },
+      "Walking Lunges": {
+        "reps": "10 per leg",
+        "sets": 3,
+        "weight": "Bodyweight"
+      },
+      "Plank": {
+        "reps": "30 seconds",
+        "sets": 3,
+        "weight": "Bodyweight"
+      },
+      "Cool-down": {
+        "reps": "5 mins",
+        "sets": 1,
+        "weight": "Bodyweight"
+      },
+      "split": "Push"
+    },
+    "Wednesday": {
+      "Warm-up": {
+        "reps": "5 mins",
+        "sets": 1,
+        "weight": "Bodyweight"
+      },
+      "Dumbbell Rows (light weight)": {
+        "reps": "10 per arm",
+        "sets": 3,
+        "weight": "2-3kg"
+      },
+      "Incline Push-ups (against a wall or chair if needed)": {
+        "reps": 8,
+        "sets": 3,
+        "weight": "Bodyweight"
+      },
+      "Glute Bridges": {
+        "reps": 15,
+        "sets": 3,
+        "weight": "Bodyweight"
+      },
+      "Side Plank (each side)": {
+        "reps": "30 seconds per side",
+        "sets": 3,
+        "weight": "Bodyweight"
+      },
+      "Cool-down": {
+        "reps": "5 mins",
+        "sets": 1,
+        "weight": "Bodyweight"
+      },
+      "split": "Pull"
+    },
+    "Saturday": {
+      "Warm-up": {
+        "reps": "5 mins",
+        "sets": 1,
+        "weight": "Bodyweight"
+      },
+      "Jumping Jacks": {
+        "reps": 20,
+        "sets": 3,
+        "weight": "Bodyweight"
+      },
+      "High Knees": {
+        "reps": 20,
+        "sets": 3,
+        "weight": "Bodyweight"
+      },
+      "Butt Kicks": {
+        "reps": 20,
+        "sets": 3,
+        "weight": "Bodyweight"
+      },
+      "Burpees (modified if needed)": {
+        "reps": 5,
+        "sets": 3,
+        "weight": "Bodyweight"
+      },
+      "Cool-down": {
+        "reps": "5 mins",
+        "sets": 1,
+        "weight": "Bodyweight"
+      },
+      "split": "Legs"
+    },
+    "Sunday": {
+      "Warm-up": {
+        "reps": "5 mins",
+        "sets": 1,
+        "weight": "Bodyweight"
+      },
+      "Yoga/Pilates": {
+        "reps": "45 mins",
+        "sets": 1,
+        "weight": "Bodyweight"
+      },
+      "Cool-down": {
+        "reps": "5 mins",
+        "sets": 1,
+        "weight": "Bodyweight"
+      },
+      "split": "Full Body"
+    }
+  }
