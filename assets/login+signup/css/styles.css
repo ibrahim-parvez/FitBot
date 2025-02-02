@@ -203,6 +203,11 @@ button:hover {
     text-decoration: underline;
 }
 
+.login-link
+{
+    padding-top: 15px;
+}
+
 #footer 
 {
     width: 100%;
